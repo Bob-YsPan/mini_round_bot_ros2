@@ -312,6 +312,7 @@ class BaseControl(Node):
                 # (20250403) IMU 資料包裝
                 # 只有Z軸旋轉有效，換算deg to rad * 10
                 gyro_z *= 0.17453
+                msg_imu.header.stamp = ts_signal.to_msg()   # 時間戳記
                 msg_imu.angular_velocity.z = gyro_z
                 if self.debug_mode:
                     self.get_logger().info(f"Converted gyro = {str(gyro_z)}")
