@@ -81,7 +81,8 @@ class BaseControl(Node):
         self.timer_odom = self.create_timer(1.0/self.odom_freq, self.timerOdomCB)   # 定義於上方，原廠為10Hz
 
         # 發布TF轉換
-        self.tf_broadcaster = tf2_ros.TransformBroadcaster(self)
+        if (self.pub_tf):
+            self.tf_broadcaster = tf2_ros.TransformBroadcaster(self)
         
         # 變數初始化
         self.trans_x = 0.0
