@@ -254,7 +254,7 @@ class BaseControl(Node):
                     if self.debug_mode:
                         self.get_logger().info(f"VR = {VR}, VL = {VL}, gyro_z = {gyro_z}")
                     # 放進Deque
-                    self.base_signal_deque.append((self.current_time, Vx, Vyaw))
+                    self.base_signal_deque.append((self.current_time, Vx, Vyaw, gyro_z))
                     self.step = 0
                 except Exception as e:
                     self.get_logger().error(f"Velocity parse error: {e}")
@@ -272,7 +272,7 @@ class BaseControl(Node):
         try:
             if(len(self.base_signal_deque) > 0):
                 # 取出最新資料
-                ts_signal, Vx, Vyaw = self.base_signal_deque.popleft()
+                ts_signal, Vx, Vyaw, gyro_z = self.base_signal_deque.popleft()
                 # 計算時間差
                 dt = (ts_signal - self.previous_time_odom).nanoseconds / 1e9
                 self.previous_time_odom = ts_signal
