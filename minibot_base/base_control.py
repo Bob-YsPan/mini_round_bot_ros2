@@ -25,7 +25,7 @@ class BaseControl(Node):
         # 這邊按照舊有的設定，轉移成ROS2的格式
         self.declare_parameter('port', '/dev/stm32base')
         self.declare_parameter('baudrate', 115200)
-        self.declare_parameter('odom_freq', 10.0)
+        self.declare_parameter('odom_freq', 20.0)
         self.declare_parameter('wheel_separation', 0.158)
         self.declare_parameter('wheel_radius', 0.032)
         self.declare_parameter('pose_cov', 0.0001)    # Sync the linorobot 2's firmware
