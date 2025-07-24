@@ -264,7 +264,7 @@ class BaseControl(Node):
     # 接收到cmd_vel的控制指令時，將最新的控制指令儲存
     def cmdCB(self, msg):
         # 將新的控制命令儲存
-        self.cmd_signal_deque.append(msg.linear.x, msg.angular.z)
+        self.cmd_signal_deque.append((msg.linear.x, msg.angular.z))
     
     # 更新最新的機器人Odom訊息
     def timerOdomCB(self):
