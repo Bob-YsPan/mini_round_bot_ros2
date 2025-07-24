@@ -94,6 +94,7 @@ class BaseControl(Node):
         self.step = 0
         self.buf = b""
         self.safestop = False
+        self.reading_loop_flag = True
         # Put the signal receive from base
         self.base_signal_deque = deque(maxlen=3)
         # Put the signal that receive from cmd_vel
@@ -164,7 +165,7 @@ class BaseControl(Node):
         # 切換狀態的變數
         self.safestop = False
         self.get_logger().info("Base receiver thread started!")
-        while(True):
+        while(self.reading_loop_flag):
             self.current_time = self.get_clock().now()
             # 發送部分
             # Have data in the deque
@@ -358,6 +359,7 @@ def main(args=None):
     except KeyboardInterrupt:
         node.get_logger().info("Shutting Down!")
         # Join thread to wait it shut down
+        node.reading_loop_flag = False
         node.base_thread.join()
     # 其他例外
     except Exception as e:
