@@ -283,7 +283,7 @@ class BaseControl(Node):
                 # 包裝 Odometry 訊息
                 msg = Odometry()
                 msg_imu = Imu()
-                msg.header.stamp = ts_signal   # 時間戳記
+                msg.header.stamp = ts_signal.to_msg()   # 時間戳記
                 msg.header.frame_id = self.odomId   # Header Frame(需要跟EKF符合)
                 msg.child_frame_id = self.baseId    # Child Frame(需要跟EKF符合)
                 # 計算出的X、Y、Z座標(Z始終為0，因為是2D平面)
@@ -333,7 +333,7 @@ class BaseControl(Node):
                 # ROS1 = self.tf_broadcaster.sendTransform( (self.pose_x, self.pose_y, 0.0), pose_quat, self.current_time, self.baseId, self.odomId)
                 if self.pub_tf:
                     t = tf2_ros.TransformStamped()
-                    t.header.stamp = self.current_time.to_msg()
+                    t.header.stamp = ts_signal.to_msg()
                     t.header.frame_id = self.odomId
                     t.child_frame_id = self.baseId
                     t.transform.translation.x = self.pose_x
